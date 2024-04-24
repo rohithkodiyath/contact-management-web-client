@@ -1,0 +1,84 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger card-flex">
+                        <div class="card-title-container">
+                            <h4 class="card-title">Contacts List</h4>
+                            <p class="card-category"></p>
+                        </div>
+                        <div class="right-align-container ">
+                            <div class="card-title-container p-3">
+                                <form class="navbar-form">
+                                    <div class="input-group no-border">
+                                        <input type="text" [(ngModel)]="this.searchKey"  class="form-control" placeholder="Search...">
+                                        <button mat-raised-button
+                                                (click)="getTableData(0)"
+                                                 class="btn btn-white btn-round btn-just-icon">
+                                            <i class="material-icons">search</i>
+                                            <div class="ripple-container"></div>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <button mat-flat-button color="warn"
+                                    [routerLink]="['contact-edit','0']"
+                                    [queryParams]="{mode:ContactPageState.CREATE}"
+                                    class = "add-contact-btn border-white">
+                                <mat-icon>add</mat-icon>
+                                Add Contact
+                            </button>
+                        </div>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table matSort class="table" (matSortChange)="sortData($event)">
+                                <thead class=" text-primary">
+                                <th mat-sort-header = "{{sortFields.fname}}">
+                                    First Name
+                                </th>
+                                <th mat-sort-header = "{{sortFields.lname}}">
+                                    Last Name
+                                </th>
+                                <th mat-sort-header = "{{sortFields.mail}}">
+                                    Email Id
+                                </th>
+                                <th>
+                                    Actions
+                                </th>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let contact of contacts" >
+                                    <td>{{contact.firstName}}</td>
+                                    <td>{{contact.lastName}}</td>
+                                    <td>{{contact.email}}</td>
+                                    <td>
+                                        <button mat-icon-button color="warn" [queryParams]="{mode:ContactPageState.EDIT}" [routerLink]="['contact-edit',contact.uuid]">
+                                            <mat-icon>mode_edit</mat-icon>
+                                        </button>
+                                        <button [routerLink]="['contact-edit',contact.uuid]" [queryParams]="{mode:ContactPageState.VIEW}"  mat-icon-button color="warn" >
+                                            <mat-icon>remove_red_eye</mat-icon>
+                                        </button>
+                                    </td>
+
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <mat-paginator [length]="paginator?.length"
+                                           [pageSize]="paginator?.pageSize"
+                                           [hidePageSize]="true"
+                                           (page)="handlePageEvent($event)"
+                                           [disabled] = "false"
+                                           aria-label="Select page">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

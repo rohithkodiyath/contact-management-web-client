@@ -1,0 +1,16 @@
+.form-control::placeholder {
+    color: white !important; /* Example: Light gray color for the placeholder text */
+}
+
+.form-control {
+    color: white !important; /* Example: Light gray color for the placeholder text */
+}
+
+.form-control :focus{
+    border: 2px solid white !important; /* Example: White border color */
+}
+
+.right-align-container {
+    display: flex;
+    align-items: center; /* Keeps the search and button aligned */
+}

@@ -1,0 +1,46 @@
+version: "3.7"
+services:
+  contact-db:
+    image: mongo:4.0.4
+    ports:
+      - "27017:27017"
+    volumes:
+      - contact-management-db-vol-10:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: contact-management
+    networks:
+      - contact-management-network
+  contact-server:
+    image: rohithkodiyath/learning-hub:contact-management-server
+    depends_on:
+      - contact-db
+    ports:
+      - "8080:8080"
+    environment:
+        - spring.docker.compose.enabled=false
+        - server.port=8080
+        - spring.data.mongodb.host=contact-db
+        - spring.data.mongodb.port=27017
+        - com.rkp.name=rkp
+    links:
+      - contact-db
+    networks:
+      - contact-management-network
+  contact-client:
+    image: rohithkodiyath/learning-hub:contact-management-client
+    ports:
+      - "80:80"
+    environment:
+      - HOST_URL=localhost:8080
+    links:
+      - contact-server
+    depends_on:
+      - contact-server
+    networks:
+      - contact-management-network
+networks:
+  contact-management-network:
+volumes:
+  contact-management-db-vol-10:

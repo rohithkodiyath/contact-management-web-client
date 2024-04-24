@@ -1,0 +1,43 @@
+<div class="box">
+
+    <div class="title">Login</div>
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="submitForm()">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field appearance="fill">
+                    <mat-label>Email Address</mat-label>
+                    <input matInput placeholder="Enter your email" formControlName="email">
+                </mat-form-field>
+                <div *ngIf="loginForm.get('email').touched" class = "form-error">
+                        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+                            Email  is required
+                        </mat-error>
+                        <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+                            Invalid email address
+                        </mat-error>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <mat-form-field appearance="fill">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" placeholder="Enter your password" formControlName="password">
+                </mat-form-field>
+                <div *ngIf="loginForm.get('password').touched" class = "form-error">
+                    <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                        Password  is required
+                    </mat-error>
+                </div>
+            </div>
+
+
+            <div class="button login">
+                <button mat-raised-button color="primary">Login</button>
+            </div>
+        </div>
+    </form>
+
+
+    <a [routerLink]="'/auth/new'" class="pass-forgot">New user ?</a>
+
+</div>

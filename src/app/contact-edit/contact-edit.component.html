@@ -1,0 +1,215 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger card-flex">
+                        <h4 class="card-title text-capitalize">{{mode}} Contact</h4>
+                        <button *ngIf="mode == ContactPageState.EDIT" (click)="deleteContact()"
+                                mat-flat-button color="warn"  class = "add-contact-btn border-white">
+                            <mat-icon>delete</mat-icon>
+                            Delete
+                        </button>
+                        <button *ngIf="mode == ContactPageState.VIEW" (click)="mode = ContactPageState.EDIT; contactForm.enable();"
+                                mat-flat-button color="warn"  class = "add-contact-btn border-white">
+                            <mat-icon>edit</mat-icon>
+                            Edit
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="contactForm" (ngSubmit)="submitForm()">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input formControlName="firstName"  placeholder="First Name" matInput >
+                                    </mat-form-field>
+                                    <div *ngIf="contactForm.get('firstName').touched" class = "form-error">
+                                        <mat-error *ngIf="contactForm.get('firstName')?.hasError('required')">
+                                            First Name is required
+                                        </mat-error>
+                                        <mat-error *ngIf="contactForm.get('firstName')?.hasError('minlength') ||
+                                            contactForm.get('firstName')?.hasError('maxlength')">
+                                            First Name must be between 2 and 50 characters
+                                        </mat-error>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input formControlName="lastName" matInput placeholder="Last Name">
+                                    </mat-form-field>
+                                    <div *ngIf="contactForm.get('lastName').touched" class = "form-error">
+                                        <mat-error *ngIf="contactForm.get('lastName')?.hasError('required')">
+                                            First Name is required
+                                        </mat-error>
+                                        <mat-error *ngIf="contactForm.get('lastName')?.hasError('minlength') ||
+                                            contactForm.get('lastName')?.hasError('maxlength')">
+                                            Last Name must be between 2 and 50 characters
+                                        </mat-error>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input formControlName="email" matInput placeholder="Email address" type="email">
+                                    </mat-form-field>
+                                    <div *ngIf="contactForm.get('email').touched" class = "form-error">
+                                        <mat-error *ngIf="contactForm.get('email')?.hasError('required')">
+                                            Email  is required
+                                        </mat-error>
+                                        <mat-error *ngIf="contactForm.get('email')?.hasError('minlength') ||
+                                            contactForm.get('email')?.hasError('maxlength')">
+                                            Email  must be between 11 and 50 characters
+                                        </mat-error>
+                                        <mat-error *ngIf="contactForm.get('email')?.hasError('email')">
+                                            Invalid email address
+                                        </mat-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input formControlName="phone" matInput placeholder="Phone">
+                                    </mat-form-field>
+                                    <div *ngIf="contactForm.get('phone').touched" class = "form-error">
+                                        <mat-error *ngIf="contactForm.get('phone')?.hasError('required')">
+                                            Phone  is required
+                                        </mat-error>
+                                        <mat-error *ngIf="contactForm.get('phone')?.hasError('pattern')">
+                                            Phone should be in the format +1 (xxx) xxx-xxxx
+                                        </mat-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input  formControlName="company" matInput placeholder="Company">
+                                    </mat-form-field>
+                                    <mat-error *ngIf="contactForm.get('company')?.hasError('minlength') ||
+                                            contactForm.get('company')?.hasError('maxlength')">
+                                        Company name must be between 2 and 50 characters
+                                    </mat-error>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput formControlName="website" placeholder="Website">
+                                    </mat-form-field>
+                                    <mat-error *ngIf="contactForm.get('website')?.hasError('minlength') ||
+                                            contactForm.get('website')?.hasError('maxlength')">
+                                        Website must be between 2 and 50 characters
+                                    </mat-error>
+                                    <mat-error *ngIf="contactForm.get('website')?.hasError('pattern')">
+                                        Website should be in the format http(s)://example.com
+                                    </mat-error>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Address</label>
+                                    <mat-divider></mat-divider>
+                                </div>
+                            </div>
+                            <div class="row" formGroupName="address">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input formControlName="civicNumber" matInput placeholder="Civic Number" type="number">
+                                    </mat-form-field>
+                                    <div *ngIf="contactForm.get('address.civicNumber').touched" class = "form-error">
+                                        <mat-error *ngIf="contactForm.get('address.civicNumber')?.hasError('required')">
+                                            Civic Number  is required
+                                        </mat-error>
+                                        <mat-error *ngIf="contactForm.get('address.civicNumber')?.hasError('min') ||
+                                            contactForm.get('address.civicNumber')?.hasError('max')">
+                                            Civic Number  must be between 1 and 99999
+                                        </mat-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input formControlName="unitNumber"   matInput placeholder="Unit Number" type="number">
+                                    </mat-form-field>
+                                    <div *ngIf="contactForm.get('address.unitNumber').touched" class = "form-error">
+                                        <mat-error *ngIf="contactForm.get('address.unitNumber')?.hasError('required')">
+                                            Unit Number  is required
+                                        </mat-error>
+                                        <mat-error *ngIf="contactForm.get('address.unitNumber')?.hasError('min') ||
+                                            contactForm.get('address.unitNumber')?.hasError('max')">
+                                            Unit Number  must be between 1 and 99999
+                                        </mat-error>
+                                        <mat-error *ngIf="contactForm.get('address.unitNumber')?.hasError('pattern')" >
+                                            Unit Number must be integer values
+                                        </mat-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input formControlName="street"  matInput placeholder="Street" type="text">
+                                    </mat-form-field>
+                                    <div *ngIf="contactForm.get('address.street').touched" class = "form-error">
+                                        <mat-error *ngIf="contactForm.get('address.street')?.hasError('required')">
+                                            Street name  is required
+                                        </mat-error>
+                                        <mat-error *ngIf="contactForm.get('address.street')?.hasError('minlength') ||
+                                                contactForm.get('address.street')?.hasError('maxlength')">
+                                            Street name must be between 2 and 50 characters
+                                        </mat-error>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input formControlName="city"  matInput placeholder="City" type="text">
+                                    </mat-form-field>
+                                    <div *ngIf="contactForm.get('address.city').touched" class = "form-error">
+                                        <mat-error *ngIf="contactForm.get('address.city')?.hasError('required')">
+                                            Civic Number  is required
+                                        </mat-error>
+                                        <mat-error *ngIf="contactForm.get('address.city')?.hasError('minlength') ||
+                                                contactForm.get('address.city')?.hasError('maxlength')">
+                                            Street name must be between 2 and 50 characters
+                                        </mat-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput formControlName="province"  placeholder="Province" type="text">
+                                    </mat-form-field>
+                                    <div *ngIf="contactForm.get('address.province').touched" class = "form-error">
+                                        <mat-error *ngIf="contactForm.get('address.province')?.hasError('required')">
+                                            Civic Number  is required
+                                        </mat-error>
+                                        <mat-error *ngIf="contactForm.get('address.province')?.hasError('minlength') ||
+                                                contactForm.get('address.province')?.hasError('maxlength')">
+                                            Province name must of length 2 characters
+                                        </mat-error>
+                                        <mat-error *ngIf="contactForm.get('address.province')?.hasError('pattern')">
+                                            Province must be 2 characters long and in uppercase
+                                        </mat-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput formControlName="postalCode"  placeholder="Postal Code" type="text">
+                                    </mat-form-field>
+                                    <div *ngIf="contactForm.get('address.postalCode').touched" class = "form-error">
+                                        <mat-error *ngIf="contactForm.get('address.postalCode')?.hasError('required')">
+                                            Postal Code is required
+                                        </mat-error>
+                                        <mat-error *ngIf="contactForm.get('address.postalCode')?.hasError('pattern')">
+                                            Postal code must be in the format A1A 1A1
+                                        </mat-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right" *ngIf="mode != ContactPageState.VIEW">
+                                {{ (!this.uuid || this.uuid == '0') ? "Create " : "Update"}} Contact</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

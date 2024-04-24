@@ -1,0 +1,18 @@
+.green-snackbar {
+    background: rgb(24, 141, 65);
+    color: white;
+}
+.green-snackbar button {
+    background-color: rgb(24, 141, 65);
+    color: white;
+    border: none;
+}
+.red-snackbar {
+    background: #d73832;
+    color: white;
+}
+.red-snackbar button {
+    background-color: #F44336;
+    color: white !important;
+    border: none;
+}/* You can add global styles to this file, and also import other style files */
